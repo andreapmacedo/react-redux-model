@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// function App(props) {
+class App extends React.Component {
+  render() {
+    const { countState } = this.props;
+    return (
+      <div>
+        <h1>Contador</h1>
+        <h2>{ countState }</h2>
+        <button>Incrementa 1</button>
+        <button>Incrementa 5</button>
+      </div>
+    );
+  }
 }
 
-export default App;
+// mapeia o estado para props
+// { prop: value} -> props do componente App e o valor que está no estado
+const mapStateToProps = (state) => ({
+  countState: state.count,
+});
+
+
+
+// export default App;
+export default connect(mapStateToProps)(App);
