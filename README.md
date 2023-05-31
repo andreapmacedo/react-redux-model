@@ -209,6 +209,9 @@ export const actionCreator = (increment = 1) => ({
   - passa a actionCreator como propriedade do componente
   - chama a actionCreator no componente
 
+
+- exemplo 1:
+
 ```jsx
 import React from 'react';
 import { connect } from 'react-redux';
@@ -242,6 +245,41 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(App);
 ``` 
 
+- exemplo 2:
+
+```jsx
+import React from 'react';
+import { connect } from 'react-redux';
+import { actionCreator } from './redux/actions';
+
+// funcional
+// const App = ({ incrementCount, countState }) => {
+//   return (
+// classe
+class App extends React.Component {
+  render() {
+    const { incrementCount, countState } = this.props;
+    return (
+      <div>
+        <h1>Contador</h1>
+        <h2>{ countState }</h2>
+        <button onClick={() => incrementCount(1)}>Incrementa 1</button>
+        <button onClick={() => incrementCount(5)}>Incrementa 5</button>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  countState: state.count,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  incrementCount: (value) => dispatch(actionCreator(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+```
 
 
 #### Criando mais de um reducer
